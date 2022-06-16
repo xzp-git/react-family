@@ -1,33 +1,17 @@
 import React from "react";
-import { bindActionCreators } from "../redux";
-import store from "../store";
 import actionCreators from "../store/actionCreators/counter2";
-const boundActionCreators = bindActionCreators(actionCreators, store.dispatch);
-//boundActionCreators={add:()=>dispatch({ type: ADD }),minus}
-class Counter1 extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { number: store.getState().counter2.number };
-  }
-  componentDidMount() {
-    this.unsubscribe = store.subscribe(() =>
-      this.setState({
-        number: store.getState().counter2.number,
-      })
-    );
-    console.log(store.getState());
-  }
-  componentWillUnmount() {
-    this.unsubscribe(store.getState());
-  }
-  render() {
-    return (
-      <div>
-        <p>{this.state.number}</p>
-        <button onClick={boundActionCreators.add2}>+</button>
-        <button onClick={boundActionCreators.minus2}>-</button>
-      </div>
-    );
-  }
+import { useSelector, useDispatch, useBoundDispatch } from "../react-redux";
+function Counter2() {
+  //1.从状态树中获取某一部分状态，进行渲染 2.当仓库中的状态发生改变后会重新渲染组件
+  const counter2 = useSelector((state) => state.counter2);
+  //const dispatch = useDispatch();//store.dispatch
+  const { add2, minus2 } = useBoundDispatch(actionCreators);
+  return (
+    <div>
+      <p>{counter2.number}</p>
+      <button onClick={add2}>+</button>
+      <button onClick={minus2}>-</button>
+    </div>
+  );
 }
-export default Counter1;
+export default Counter2;

@@ -1,37 +1,23 @@
-import React from "react";
-import { bindActionCreators } from "../redux";
-import store from "../store";
-import actionCreators from "../store/actionCreators/counter1";
-const boundActionCreators = bindActionCreators(actionCreators, store.dispatch);
-//boundActionCreators={add:()=>dispatch({ type: ADD }),minus}
+import React from 'react';
+import actionCreators from '../store/actionCreators/counter1';
+import { connect } from '../react-redux';
 class Counter1 extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { number: store.getState().counter1.number };
-  }
-  componentDidMount() {
-    this.unsubscribe = store.subscribe(() =>
-      this.setState({
-        number: store.getState().counter1.number,
-      })
-    );
-  }
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
   render() {
-    console.log(store.getState());
-
     return (
       <div>
-        <p>{this.state.number}</p>
-        <button onClick={boundActionCreators.add1}>+</button>
-        <button onClick={boundActionCreators.minus1}>-</button>
-        <button onClick={() => store.dispatch({ type: "DOUBLE" })}>
-          DOUBLE
-        </button>
-      </div>
-    );
+        <p>{this.props.number}</p>
+        <button onClick={this.props.add1}>+</button>
+        <button onClick={this.props.minus1}>-</button>
+        <button onClick={this.props.thunkAdd}>thunkAdd</button>
+        <button onClick={this.props.promiseAdd}>promiseAdd</button>
+      </div >
+    )
   }
 }
-export default Counter1;
+//把仓库中的状态映射为组件的属性对象 仓库到组件的输出
+const mapStateToProps = state => state.counter1;
+//const mapDispatchToProps = dispatch => bindActionCreators(actionCreators, dispatch)
+export default connect(
+  mapStateToProps,
+  actionCreators //组件的输出，在组件里派发动作，修改仓库
+)(Counter1);
