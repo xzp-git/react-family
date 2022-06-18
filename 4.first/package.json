@@ -1,5 +1,5 @@
 {
-  "name": "3.redux",
+  "name": "4.first",
   "private": true,
   "version": "0.0.0",
   "scripts": {
@@ -10,7 +10,10 @@
   "dependencies": {
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "react-redux": "^8.0.2"
+    "react-redux": "^8.0.2",
+    "react-router-dom": "^6.3.0",
+    "redux": "^4.2.0",
+    "redux-first-history": "^5.0.10"
   },
   "devDependencies": {
     "@types/react": "^18.0.0",

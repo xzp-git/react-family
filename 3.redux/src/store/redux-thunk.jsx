@@ -2,6 +2,7 @@
 function thunk({ getState, dispatch }) {
   return function (next) {
     return function (action) {
+      console.log("thunk");
       if (typeof action === "function") {
         return action(getState, dispatch);
       }

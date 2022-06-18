@@ -5,6 +5,8 @@ function promise({ getState, dispatch }) {
   return function (next) {
     //此方法就是我们改造后的dispatch方法
     return function (action) {
+      console.log("promise");
+
       if (action.then && typeof action.then === "function") {
         action.then(dispatch);
       } else {

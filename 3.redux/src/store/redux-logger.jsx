@@ -5,6 +5,8 @@ function logger({ getState, dispatch }) {
   return function (next) {
     //此方法就是我们改造后的dispatch方法
     return function (action) {
+      console.log("logger");
+
       console.log("老状态", getState());
       next(action);
       console.log("新状态", getState());
